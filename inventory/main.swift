@@ -9,7 +9,9 @@ player.inventory.addItem(sword)
 
 player.equip(player.inventory.items[0])
 player.equip(player.inventory.items[0])
+player.unequip(player.head!)
 
 print(player.head?.name)
 print(player.weapon?.name)
 print(player.inventory.items.count)
+print(player.inventory.amountFilled)

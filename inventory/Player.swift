@@ -17,34 +17,66 @@ class Player {
         self.attack = 0
     }
     
+    func unequip(item: Item) {
+        if let toEquip = item as? Armour{
+            switch toEquip.armourSlot {
+            case ArmourSlot.Head:
+                self.head = nil
+                moveFromPlayerToInv(item)
+                break
+            case ArmourSlot.Chest:
+                self.chest = nil
+                moveFromPlayerToInv(item)
+                break
+            case ArmourSlot.Arms:
+                self.arms = nil
+                moveFromPlayerToInv(item)
+                break
+            case ArmourSlot.Legs:
+                self.legs = nil
+                moveFromPlayerToInv(item)
+                break
+            }
+        } else if let toEquip = item as? Weapon{
+            self.weapon = nil
+            moveFromPlayerToInv(item)
+        }
+    }
+    
     func equip(item: Item) {
         if let toEquip = item as? Armour{
             switch toEquip.armourSlot {
             case ArmourSlot.Head:
                 self.head = toEquip
-                moveInvToPlayer(item)
+                moveFromInvToPlayer(item)
                 break
             case ArmourSlot.Chest:
                 self.chest = toEquip
-                moveInvToPlayer(item)
+                moveFromInvToPlayer(item)
                 break
             case ArmourSlot.Arms:
                 self.arms = toEquip
-                moveInvToPlayer(item)
+                moveFromInvToPlayer(item)
                 break
             case ArmourSlot.Legs:
                 self.legs = toEquip
-                moveInvToPlayer(item)
+                moveFromInvToPlayer(item)
                 break
             }
         } else if let toEquip = item as? Weapon{
             self.weapon = toEquip
-            moveInvToPlayer(item)
+            moveFromInvToPlayer(item)
         }
     }
     
-    func moveInvToPlayer(item: Item) {
-        let index = inventory.items.indexOf(item)
-        inventory.items.removeAtIndex(index!)
+    func moveFromInvToPlayer(item: Item) {
+        if let index = inventory.items.indexOf(item){
+            inventory.amountFilled -= inventory.items[index].weight!
+            inventory.items.removeAtIndex(index)
+        }
+    }
+    
+    func moveFromPlayerToInv(item: Item) {
+        inventory.addItem(item)
     }
 }
