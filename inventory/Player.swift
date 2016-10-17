@@ -18,27 +18,32 @@ class Player {
     }
     
     func unequip(item: Item) {
-        if let toEquip = item as? Armour{
-            switch toEquip.armourSlot {
+        if let toUnequip = item as? Armour{
+            switch toUnequip.armourSlot {
             case ArmourSlot.Head:
                 self.head = nil
+                defense -= toUnequip.defense
                 moveFromPlayerToInv(item)
                 break
             case ArmourSlot.Chest:
                 self.chest = nil
+                defense -= toUnequip.defense
                 moveFromPlayerToInv(item)
                 break
             case ArmourSlot.Arms:
                 self.arms = nil
+                defense -= toUnequip.defense
                 moveFromPlayerToInv(item)
                 break
             case ArmourSlot.Legs:
                 self.legs = nil
+                defense -= toUnequip.defense
                 moveFromPlayerToInv(item)
                 break
             }
-        } else if let toEquip = item as? Weapon{
+        } else if let toUnequip = item as? Weapon{
             self.weapon = nil
+            attack -= toUnequip.attack
             moveFromPlayerToInv(item)
         }
     }
@@ -48,23 +53,28 @@ class Player {
             switch toEquip.armourSlot {
             case ArmourSlot.Head:
                 self.head = toEquip
+                defense += toEquip.defense
                 moveFromInvToPlayer(item)
                 break
             case ArmourSlot.Chest:
                 self.chest = toEquip
+                defense += toEquip.defense
                 moveFromInvToPlayer(item)
                 break
             case ArmourSlot.Arms:
                 self.arms = toEquip
+                defense += toEquip.defense
                 moveFromInvToPlayer(item)
                 break
             case ArmourSlot.Legs:
                 self.legs = toEquip
+                defense += toEquip.defense
                 moveFromInvToPlayer(item)
                 break
             }
         } else if let toEquip = item as? Weapon{
             self.weapon = toEquip
+            attack += toEquip.attack
             moveFromInvToPlayer(item)
         }
     }

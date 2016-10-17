@@ -1,8 +1,8 @@
 class Weapon: Item {
-    var damage: Int
+    var attack: Int
     var weaponType: WeaponType
     
-    init(name: String, weight: Int, damage: Int, weaponType: WeaponType) {
+    init(name: String, weight: Int, attack: Int, weaponType: WeaponType) {
         switch weaponType{
         case WeaponType.Axe:
             self.weaponType = WeaponType.Axe
@@ -14,7 +14,7 @@ class Weapon: Item {
             self.weaponType = WeaponType.Bow
             break
         }
-        self.damage = damage
+        self.attack = attack
         super.init(name: name, weight: weight)
     }
 }
