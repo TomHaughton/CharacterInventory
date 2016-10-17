@@ -5,11 +5,11 @@ class Player {
     var inventory = Inventory(capacity: 100, amountFilled:0)
     
     //Armour/Weapon slots
-    var head: Item?
-    var chest: Item?
-    var arms: Item?
-    var legs: Item?
-    var weapon: Item?
+    var head: Armour?
+    var chest: Armour?
+    var arms: Armour?
+    var legs: Armour?
+    var weapon: Weapon?
     
     init(){
         self.health = 100
@@ -52,27 +52,47 @@ class Player {
         if let toEquip = item as? Armour{
             switch toEquip.armourSlot {
             case ArmourSlot.Head:
+                if self.head != nil {
+                    defense -= self.head!.defense
+                    moveFromPlayerToInv(self.head!)
+                }
                 self.head = toEquip
                 defense += toEquip.defense
                 moveFromInvToPlayer(item)
                 break
             case ArmourSlot.Chest:
+                if self.chest != nil {
+                    defense -= self.chest!.defense
+                    moveFromPlayerToInv(self.chest!)
+                }
                 self.chest = toEquip
                 defense += toEquip.defense
                 moveFromInvToPlayer(item)
                 break
             case ArmourSlot.Arms:
+                if self.arms != nil {
+                    defense -= self.arms!.defense
+                    moveFromPlayerToInv(self.arms!)
+                }
                 self.arms = toEquip
                 defense += toEquip.defense
                 moveFromInvToPlayer(item)
                 break
             case ArmourSlot.Legs:
+                if self.legs != nil {
+                    defense -= self.legs!.defense
+                    moveFromPlayerToInv(self.legs!)
+                }
                 self.legs = toEquip
                 defense += toEquip.defense
                 moveFromInvToPlayer(item)
                 break
             }
         } else if let toEquip = item as? Weapon{
+            if self.weapon != nil {
+                attack -= self.weapon!.attack
+                moveFromPlayerToInv(self.weapon!)
+            }
             self.weapon = toEquip
             attack += toEquip.attack
             moveFromInvToPlayer(item)
